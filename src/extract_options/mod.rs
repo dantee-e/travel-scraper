@@ -1,0 +1,13 @@
+// use regex::Regex;
+//
+// const HAY: &str = r#"<option value="50">a&amp;o Antwerpen Centraal</option><option value="1">a&amp;o Berlin Friedrichshain</option><option value="17">a&amp;o Berlin Hauptbahnhof</option><option value="28">a&amp;o Aachen Hauptbahnhof</option><option value="34">a&amp;o Berlin Kolumbus</option><option value="4">a&amp;o Berlin Mitte</option><option value="39">a&amp;o Bremen Hauptbahnhof</option><option value="49">a&amp;o Brighton Beach</option><option value="51">a&amp;o Brussel Centrum</option><option value="43">a&amp;o Budapest City</option><option value="18">a&amp;o Dortmund Hauptbahnhof</option><option value="11">a&amp;o Dresden Hauptbahnhof</option><option value="14">a&amp;o Düsseldorf Hauptbahnhof</option><option value="46">a&amp;o Edinburgh City</option><option value="48">a&amp;o Firenze Campo di Marte</option><option value="27">a&amp;o Frankfurt Galluswarte</option><option value="40">a&amp;o Frankfurt Ostend</option><option value="25">a&amp;o Graz Hauptbahnhof</option><option value="21">a&amp;o Hamburg City</option><option value="9">a&amp;o Hamburg Hammer Kirche</option><option value="10">a&amp;o Hamburg Hauptbahnhof</option><option value="16">a&amp;o Hamburg Reeperbahn </option><option value="19">a&amp;o Köln Dom</option><option value="33">a&amp;o Köln Hauptbahnhof</option><option value="15">a&amp;o Köln Neumarkt</option><option value="38">a&amp;o København Nørrebro</option><option value="44">a&amp;o København Sydhavn</option><option value="12">a&amp;o Leipzig Hauptbahnhof</option><option value="52">a&amp;o Milano Ca Granda</option><option value="7">a&amp;o München Hackerbrücke</option><option value="5">a&amp;o München Hauptbahnhof</option><option value="30">a&amp;o München Laim</option><option value="20">a&amp;o Nürnberg Hauptbahnhof</option><option value="35">a&amp;o Praha Rhea</option><option value="47">a&amp;o Rotterdam City</option><option value="36">a&amp;o Salzburg Hauptbahnhof</option><option value="31">a&amp;o Stuttgart City</option><option value="37">a&amp;o Venezia Mestre</option><option value="41">a&amp;o Warszawa Wola</option><option value="29">a&amp;o Weimar</option><option value="26">a&amp;o Wien Hauptbahnhof</option><option value="13">a&amp;o Wien Stadthalle</option>"#;
+// pub fn extract_from_raw_string<'a>() -> Vec<&'a str> {
+//     let hay = HAY;
+//     let re = Regex::new(r#"<option value="\d*">([^<>]*)</option>"#).unwrap();
+//     let results: Vec<&str> = re
+//         .captures_iter(hay)
+//         .filter_map(|cap| cap.get(1).map(|m| m.as_str()))
+//         .collect();
+//     results
+// }
+// // https://www.aohostels.com/en/aachen/aachen-hauptbahnhof/?arrival=1749758400&departure=1749844800&adults=2&childs=0&childs1=0&childs2=0&childs3=0&childs4=0
