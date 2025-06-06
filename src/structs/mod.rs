@@ -1,11 +1,12 @@
 pub mod money;
-
+use url::Url;
 use money::Money;
 
 pub struct Room {
     name: String,
     lowest_price: Money,
     total_price: Money,
+    url: Url
 }
 
 
@@ -20,6 +21,7 @@ impl Room {
             name,
             lowest_price,
             total_price,
+            url: Url::parse(&url).unwrap()
         }
     }
     
