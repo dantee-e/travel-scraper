@@ -1,39 +1,11 @@
 pub mod money;
+pub mod rooms;
 use url::Url;
-use money::Money;
-
-pub struct Room {
-    name: String,
-    lowest_price: Money,
-    total_price: Money,
-    url: Url
-}
-
-
-impl Room {
-    pub fn new(
-        name: String,
-        lowest_price: Money,
-        total_price: Money,
-        url: String
-    )-> Room {
-        Self {
-            name,
-            lowest_price,
-            total_price,
-            url: Url::parse(&url).unwrap()
-        }
-    }
-    
-    pub fn print_room(&self) {
-        println!("This is the {} room, with the lowest price of {} and total of {}", 
-                 self.name, self.lowest_price, self.total_price);
-    }
-}
+use rooms::{Room, RoomAnO};
 
 pub struct Hostel {
     pub name: String,
-    pub room_options: Vec<Room>,
+    pub room_options: Vec<Box<dyn Room>>,
     link: String,
 }
 
@@ -45,7 +17,7 @@ impl Hostel {
             link
         }
     }
-    pub fn add_room_option(&mut self, room_option: Room) {
+    pub fn add_room_option(&mut self, room_option: Box<dyn Room>) {
         self.room_options.push(room_option);
     }
     
@@ -55,6 +27,13 @@ impl Hostel {
             print!("    ");
             room.print_room();
         }
+    }
+    
+    pub fn get_hostel(&self) -> String {
+        let str = self.room_options.iter().map(|room| {
+            room.get_room()
+        }).collect::<Vec<String>>().join("\n");
+        format!("Hostel {}:\n{}", self.name, str)
     }
 }
 

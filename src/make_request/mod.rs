@@ -1,8 +1,9 @@
 use std::collections::HashMap;
 pub mod a_and_o;
 pub mod hostelsclub;
+mod hashmaps_cities;
 
-fn get_hashmap_cities_to_urls<'a>() -> HashMap<String, String> {
+fn get_hashmap_cities_to_urls_a_and_o<'a>() -> HashMap<String, String> {
     let mut hashmap: HashMap<String, String> = HashMap::new();
     hashmap.insert("Aachen".to_string(), "aachen".to_string());
     hashmap.insert("Antwerpen".to_string(), "antwerpen".to_string());
@@ -36,8 +37,8 @@ fn get_hashmap_cities_to_urls<'a>() -> HashMap<String, String> {
     hashmap
 }
 
-pub fn curry_get_city_name() -> impl FnMut(&String) -> Option<String> {
-    let city_name_to_url = get_hashmap_cities_to_urls();
+pub fn curry_get_city_url_a_and_o() -> impl FnMut(&String) -> Option<String> {
+    let city_name_to_url = get_hashmap_cities_to_urls_a_and_o();
     move |city_name: &String| {
         if let Some(url) = city_name_to_url.get(city_name) {
             return Some(url.to_string());

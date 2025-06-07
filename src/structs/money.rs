@@ -10,6 +10,7 @@ pub enum Currency {
     None
 }
 
+#[derive(Clone)]
 pub struct Money {
     currency: Currency,
     whole: u64,

@@ -2,9 +2,10 @@ use reqwest::Client;
 use reqwest::header::{HeaderMap, HeaderValue};
 use std::collections::HashMap;
 use serde_json::Value;
-use crate::make_request_hostel_club;
-use crate::structs::{City, Hostel, Room};
+use url::Url;
+use crate::structs::{City, Hostel};
 use crate::structs::money::{Currency, Money};
+use crate::structs::rooms::RoomAnO;
 
 pub struct ANORequest {
     pub(crate) city: String,
@@ -117,11 +118,13 @@ fn get_from_hostel(
                     let lowest_price = room["lowest_price"].clone();
                     let total_price = room["total_price"].clone();
                     hostel.add_room_option(
-                        Room::new(
-                            room["name"].to_string(),
-                            Money::from_json_number(lowest_price, currency.clone()).unwrap(),
-                            Money::from_json_number(total_price, currency.clone()).unwrap(),
-                            room["name"].to_string()
+                        Box::new(
+                            RoomAnO::new(
+                                room["name"].to_string(),
+                                Money::from_json_number(lowest_price, currency.clone()).unwrap(),
+                                Money::from_json_number(total_price, currency.clone()).unwrap(),
+                                room["name"].to_string()
+                            )
                         )
                     );
                 }
@@ -195,7 +198,7 @@ pub async fn get_all_a_and_o() -> Option<Vec<City>> {
         "Wien".to_string(),
     ];
 
-    let mut get_city_url = super::curry_get_city_name();
+    let mut get_city_url = super::curry_get_city_url_a_and_o();
 
     // Adds the URLs to the cities structs
     for city in cities_names {
@@ -207,8 +210,8 @@ pub async fn get_all_a_and_o() -> Option<Vec<City>> {
         match request_a_and_o(ANORequest::new(
             &city,
             2,
-            "07.06.2025".to_string(),
             "08.06.2025".to_string(),
+            "09.06.2025".to_string(),
         )).await {
             Some(result) => { city.add_hostels(result) }
             None => { println!("Could not find available hostels in {}", city.name) }
