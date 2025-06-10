@@ -1,13 +1,14 @@
 pub mod money;
 pub mod rooms;
-use url::Url;
-use rooms::{Room, RoomAnO};
+use rooms::Room;
 
+#[derive(Clone)]
 pub struct Hostel {
     pub name: String,
     pub room_options: Vec<Box<dyn Room>>,
-    link: String,
+    pub(crate) link: String,
 }
+
 
 impl Hostel {
     pub fn new(name: String, link: String) -> Self {
@@ -31,12 +32,13 @@ impl Hostel {
     
     pub fn get_hostel(&self) -> String {
         let str = self.room_options.iter().map(|room| {
-            room.get_room()
+            room.get_room_string()
         }).collect::<Vec<String>>().join("\n");
         format!("Hostel {}:\n{}", self.name, str)
     }
 }
 
+#[derive(Clone)]
 pub struct City {
     pub name: String,
     pub ano_url: String,

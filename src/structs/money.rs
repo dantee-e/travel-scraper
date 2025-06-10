@@ -33,6 +33,19 @@ impl Money {
             cents: (number - (number as u64) as f64 * 10.) as u64,
         })
     }
+    
+    pub fn new(number: f64, currency: &str) -> Option<Self> {
+        let currency = match currency {
+            "EUR" => Currency::Euro,
+            "DOL" => Currency::Dollar,
+            _ => Currency::None
+        };
+        Some(Self {
+            currency,
+            whole: number as u64,
+            cents: (number - (number as u64) as f64 * 10.) as u64,
+        })
+    }
 }
 impl Add for Money {
     type Output = Self;
