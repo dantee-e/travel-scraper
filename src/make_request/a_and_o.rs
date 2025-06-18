@@ -2,7 +2,6 @@ use reqwest::Client;
 use reqwest::header::{HeaderMap, HeaderValue};
 use std::collections::HashMap;
 use serde_json::Value;
-use url::Url;
 use crate::structs::{City, Hostel};
 use crate::structs::money::{Currency, Money};
 use crate::structs::rooms::RoomAnO;

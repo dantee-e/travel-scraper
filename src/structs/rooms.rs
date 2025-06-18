@@ -3,7 +3,7 @@ use crate::structs::money::Money;
 
 
 
-pub trait Room {
+pub trait Room: Send {
     fn print_room(&self);
     
     fn get_room_string(&self) -> String;
@@ -19,6 +19,7 @@ impl Clone for Box<dyn Room> {
 }
 
 #[derive(Clone)]
+#[repr(C)]
 pub struct RoomAnO {
     pub(crate) name: String,
     pub(crate) lowest_price: Money,
@@ -60,6 +61,7 @@ impl Room for RoomAnO {
 }
 
 #[derive(Clone)]
+#[repr(C)]
 pub struct RoomHostelClub {
     pub(crate) name: String,
     pub(crate) price: Money,

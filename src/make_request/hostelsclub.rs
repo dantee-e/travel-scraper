@@ -224,7 +224,7 @@ pub async fn get_all_hostel_world() -> Option<Vec<City>> {
         "Cologne".to_string(),
     ];
 
-    let mut city_urls = super::hashmaps_cities::get_hashmap_cities_to_urls_hostel_world();
+    let city_urls = super::hashmaps_cities::get_hashmap_cities_to_urls_hostel_world();
 
 
     // Adds the URLs to the cities structs

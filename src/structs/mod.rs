@@ -3,6 +3,7 @@ pub mod rooms;
 use rooms::Room;
 
 #[derive(Clone)]
+#[repr(C)]
 pub struct Hostel {
     pub name: String,
     pub room_options: Vec<Box<dyn Room>>,
@@ -39,6 +40,7 @@ impl Hostel {
 }
 
 #[derive(Clone)]
+#[repr(C)]
 pub struct City {
     pub name: String,
     pub ano_url: String,
