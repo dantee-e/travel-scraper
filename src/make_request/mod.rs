@@ -3,7 +3,7 @@ pub mod a_and_o;
 pub mod hostelsclub;
 mod hashmaps_cities;
 
-fn get_hashmap_cities_to_urls_a_and_o<'a>() -> HashMap<String, String> {
+fn get_hashmap_cities_to_urls_a_and_o() -> HashMap<String, String> {
     let mut hashmap: HashMap<String, String> = HashMap::new();
     hashmap.insert("Aachen".to_string(), "aachen".to_string());
     hashmap.insert("Antwerpen".to_string(), "antwerpen".to_string());

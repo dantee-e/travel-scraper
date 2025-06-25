@@ -1,5 +1,6 @@
 pub mod money;
 pub mod rooms;
+
 use rooms::Room;
 
 #[derive(Clone)]
@@ -10,19 +11,18 @@ pub struct Hostel {
     pub(crate) link: String,
 }
 
-
 impl Hostel {
     pub fn new(name: String, link: String) -> Self {
         Self {
             name,
             room_options: vec![],
-            link
+            link,
         }
     }
     pub fn add_room_option(&mut self, room_option: Box<dyn Room>) {
         self.room_options.push(room_option);
     }
-    
+
     pub fn print_hostel(&self) {
         println!("Hostel {}:", self.name);
         for room in self.room_options.iter() {
@@ -30,11 +30,14 @@ impl Hostel {
             room.print_room();
         }
     }
-    
+
     pub fn get_hostel(&self) -> String {
-        let str = self.room_options.iter().map(|room| {
-            room.get_room_string()
-        }).collect::<Vec<String>>().join("\n");
+        let str = self
+            .room_options
+            .iter()
+            .map(|room| room.get_room_string())
+            .collect::<Vec<String>>()
+            .join("\n");
         format!("Hostel {}:\n{}", self.name, str)
     }
 }
@@ -56,9 +59,9 @@ impl City {
         }
     }
     pub fn add_hostels(&mut self, mut hostels: Vec<Hostel>) {
-        self.hostels.append(&mut hostels);
+        self.hostels.append(&mut Box::new(hostels));
     }
-    
+
     pub fn print_city(&self) {
         println!("City {}:", self.name);
         for hostel in self.hostels.iter() {

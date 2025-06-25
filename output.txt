@@ -1,0 +1,14 @@
+Hostel "Amstel House Hostel Berlin":
+This is the "2 Bett/en " room, with the price of €38.00
+This is the "4 Bett/en gemischt " room, with the price of €32.00
+This is the "4 Bett/en weiblich " room, with the price of €32.00
+Hostel "Happy Hotel Berlin":
+This is the "Standardzimmer 1 Bett/en " room, with the price of €100.00
+This is the "Standardzimmer 2 Bett/en " room, with the price of €80.00
+This is the "Standardzimmer 6 Bett/en gemischt " room, with the price of €40.00
+Hostel "Singer109":
+This is the "Standardzimmer 6 Bett/en gemischt " room, with the price of €40.00
+This is the "Standardzimmer 6 Bett/en weiblich " room, with the price of €42.00
+Hostel "A&O Berlin Hauptbahnhof":
+This is the "Standardzimmer Doppelbett " room, with the price of €47.00
+This is the "Standardzimmer 1 Bett/en " room, with the price of €95.00
