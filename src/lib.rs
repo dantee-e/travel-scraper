@@ -98,6 +98,7 @@ pub unsafe extern "C" fn free_string_list(ptr: *mut ListCString, len: c_uint) {
     }
 }
 
+#[unsafe(no_mangle)]
 pub unsafe extern "C" fn free_city_list(ptr: *mut ListCCity) {
     if ptr.is_null() {
         println!("pointer provided to free city list was null");
