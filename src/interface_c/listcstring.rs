@@ -2,7 +2,7 @@ use std::ffi::{CStr, c_char, c_uint};
 
 #[repr(C)]
 pub struct ListCString {
-    pub strings: *const *const c_char,
+    pub strings: *mut *const c_char,
     pub length: c_uint,
 }
 impl ListCString {
@@ -15,8 +15,11 @@ impl ListCString {
         let mut result = Vec::with_capacity(cities_ptrs.len());
 
         for ptr in cities_ptrs.iter() {
-            let string = unsafe { CStr::from_ptr(*ptr) }.to_str().unwrap();
-            result.push(string.to_string());
+            let string = unsafe { CStr::from_ptr(*ptr) }.to_str();
+            match string {
+                Ok(string) => result.push(string.to_string()),
+                Err(e) => println!("Error converting from CStr: {e}"),
+            }
         }
 
         result

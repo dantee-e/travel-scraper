@@ -1,20 +1,12 @@
 #![allow(dead_code)]
-
-use std::ffi::{CStr, CString, c_char, c_uint};
-use std::mem::forget;
-use std::ptr;
+use std::ffi::{CString, c_char, c_uint};
 use std::slice::from_raw_parts;
 
-use crate::interface_c::city::CCity;
-use crate::interface_c::free::{free_ccity, free_chostel, free_croom};
-use crate::interface_c::hostel::CHostel;
-use crate::interface_c::room::CRoom;
+use crate::interface_c::free::free_ccity;
 use crate::interface_c::{city::ListCCity, const_char_ptr_to_string, listcstring::ListCString};
 use crate::make_request::a_and_o::{ANORequest, request_a_and_o};
 use crate::make_request::curry_get_city_url_a_and_o;
-use crate::structs::money::Money;
-use crate::structs::rooms::{GenericRoom, Room, RoomAnO};
-use crate::structs::{City, Hostel};
+use crate::structs::City;
 use tokio::runtime::Runtime;
 
 mod extract_options;
@@ -58,8 +50,8 @@ async fn async_get_many_cities(
 #[unsafe(no_mangle)]
 pub unsafe extern "C" fn get_many_cities(
     cities_names_c: ListCString,
-    date_start: *const std::ffi::c_char,
-    date_end: *const std::ffi::c_char,
+    date_start: *mut std::ffi::c_char,
+    date_end: *mut std::ffi::c_char,
 ) -> *const ListCCity {
     let rt = Runtime::new().unwrap();
 
@@ -77,7 +69,7 @@ pub unsafe extern "C" fn get_many_cities(
 }
 
 #[unsafe(no_mangle)]
-pub unsafe extern "C" fn free_string_list(ptr: *mut ListCString, len: c_uint) {
+pub unsafe extern "C" fn free_list_c_string(ptr: *mut ListCString, len: c_uint) {
     if ptr.is_null() {
         println!("pointer provided to free city list was null");
         return;
@@ -104,6 +96,7 @@ pub unsafe extern "C" fn free_city_list(ptr: *mut ListCCity) {
         println!("pointer provided to free city list was null");
         return;
     }
+    println!("Freeing city");
 
     unsafe {
         let list = &*ptr;
@@ -113,27 +106,4 @@ pub unsafe extern "C" fn free_city_list(ptr: *mut ListCCity) {
             free_ccity(city);
         }
     }
-}
-
-#[test]
-fn test_from_to_hostel() {
-    let room_options: Vec<Box<dyn Room>> = vec![Box::new(GenericRoom {
-        name: "4 camas".to_string(),
-        price: Money::new(4.50, "EUR").unwrap(),
-        url: "url".to_string(),
-    })];
-    let hostel = Hostel {
-        name: "Hostelepico".to_string(),
-        room_options,
-        link: "hostelepico.com".to_string(),
-    };
-
-    let city = City {
-        name: "Sanca".to_string(),
-        ano_url: "sanca.com".to_string(),
-        hostels: vec![hostel],
-    };
-    let ccity = CCity::from_city(&city);
-    let old_city = ccity.to_city();
-    old_city.print_city();
 }
